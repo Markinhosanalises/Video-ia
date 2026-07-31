@@ -1,0 +1,40 @@
+{
+  "episodio": "Episódio 1 — O Menino Que Ninguém Escalou",
+  "personagens": {
+    "davi": "young shepherd boy, around 16 years old, olive skin, short curly dark brown hair, wearing a simple beige tunic with a rope belt, barefoot, carrying a leather sling, determined calm expression",
+    "golias": "massive armored warrior giant, over 3 meters tall, bronze scale armor, bronze helmet, thick dark beard, holding a large spear, intimidating silhouette"
+  },
+  "estiloVisual": "cinematic biblical epic illustration, warm desert dusk lighting, painterly realistic style, dramatic shadows, dust particles in the air, no text, no watermark, vertical 9:16 composition",
+  "cenas": [
+    {
+      "id": "01",
+      "narracao": "Um exército inteiro estava paralisado de medo. E quem resolveu enfrentar o gigante foi o único que ninguém chamou.",
+      "promptImagem": "wide shot of an ancient army camp at dawn, dozens of soldiers standing frozen, staring fearfully toward a distant valley, golden morning light, tents in background"
+    },
+    {
+      "id": "02",
+      "narracao": "Havia quarenta dias que um guerreiro gigante desafiava o exército todas as manhãs. Ninguém tinha coragem de responder.",
+      "promptImagem": "{golias}, standing alone in a dusty valley at dawn, seen from behind at a distance, small figures of soldiers watching from a hill far away, ominous atmosphere"
+    },
+    {
+      "id": "03",
+      "narracao": "Um jovem pastor, que só tinha ido levar comida aos irmãos, ouviu o desafio — e foi o único que se ofereceu para enfrentar.",
+      "promptImagem": "{davi}, standing at the edge of the army camp, looking determined toward the distant giant, soldiers around him reacting with shock and disbelief"
+    },
+    {
+      "id": "04",
+      "narracao": "Ofereceram a ele armadura e espada. Ele recusou tudo. Levou apenas o que já conhecia: sua funda, e cinco pedras do riacho.",
+      "promptImagem": "close-up of young hands picking smooth round stones from a shallow riverbed, soft morning light, calm water reflections, sling resting nearby"
+    },
+    {
+      "id": "05",
+      "narracao": "O gigante riu. Mas antes que o riso acabasse, a pedra já estava no ar.",
+      "promptImagem": "{davi} mid-motion, swinging a sling in a wide dusty field, {golias} in the background starting to fall, dramatic action freeze-frame, dust flying, cinematic wide shot"
+    },
+    {
+      "id": "06",
+      "narracao": "Naquele dia, o menor de todos derrubou o que ninguém tinha coragem de enfrentar.",
+      "promptImagem": "{davi} standing alone and victorious in the open field at golden sunset, calm and humble posture, warm backlight, epic but quiet mood"
+    }
+  ]
+}
