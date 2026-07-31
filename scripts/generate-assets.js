@@ -30,6 +30,7 @@ async function gerarImagem(cena) {
     height: "1536",
     nologo: "true",
     model: "flux",
+    enhance: "true",
   });
   if (POLLINATIONS_TOKEN) params.set("token", POLLINATIONS_TOKEN);
 
@@ -88,9 +89,18 @@ async function main() {
     });
   }
 
+  const musicaPath = path.join(ROOT, "public/music/trilha.mp3");
+  const temMusica = fs.existsSync(musicaPath);
+  if (temMusica) {
+    console.log("\n[música] trilha.mp3 encontrada — vai entrar no vídeo.");
+  } else {
+    console.log("\n[música] nenhuma trilha encontrada em public/music/trilha.mp3 — vídeo sairá sem música de fundo.");
+  }
+
   const manifest = {
     episodio: roteiro.episodio,
     fps: 30,
+    temMusica,
     cenas: manifestCenas,
   };
 
