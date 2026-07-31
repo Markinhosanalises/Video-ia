@@ -3,11 +3,8 @@
 // escreve public/manifest.json, que o Remotion usa pra montar o vídeo final
 // com a duração certa de cada cena.
 //
-// A geração de imagem funciona sem nenhuma chave. A geração de narração,
-// nas versões mais recentes da API, pode exigir um token gratuito (sem
-// cartão, sem cobrança) criado em auth.pollinations.ai — veja o README
-// pra saber como pegar o seu e configurar como Secret POLLINATIONS_TOKEN
-// no GitHub.
+// A geração de narração usa a chave gratuita criada em enter.pollinations.ai,
+// configurada como Secret POLLINATIONS_TOKEN no GitHub.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -16,9 +13,7 @@ import { execSync } from "node:child_process";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const roteiro = JSON.parse(fs.readFileSync(path.join(ROOT, "data/roteiro.json"), "utf-8"));
 
-// opcional — deixe em branco se não tiver
 const POLLINATIONS_TOKEN = process.env.POLLINATIONS_TOKEN || "";
-// vozes disponíveis no modelo de áudio: alloy, echo, fable, onyx, nova, shimmer
 const VOICE = process.env.NARRATION_VOICE || "onyx";
 
 const IMG_DIR = path.join(ROOT, "public/images");
@@ -26,7 +21,6 @@ const AUDIO_DIR = path.join(ROOT, "public/audio");
 fs.mkdirSync(IMG_DIR, { recursive: true });
 fs.mkdirSync(AUDIO_DIR, { recursive: true });
 
-// troca {davi} / {golias} pela descrição fixa do personagem, pra manter consistência visual entre cenas
 function resolvePrompt(promptImagem) {
   let resolved = promptImagem
     .replaceAll("{davi}", roteiro.personagens.davi)
