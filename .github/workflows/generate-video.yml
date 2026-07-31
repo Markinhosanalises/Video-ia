@@ -19,6 +19,8 @@ jobs:
         run: npm install
 
       - name: Gerar imagens e narração (Pollinations.ai — grátis, sem chave)
+        env:
+          POLLINATIONS_TOKEN: ${{ secrets.POLLINATIONS_TOKEN }}
         run: npm run generate-assets
 
       - name: Renderizar vídeo com Remotion
