@@ -3,13 +3,16 @@ import {
   AbsoluteFill,
   Audio,
   Img,
-  Sequence,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
   interpolate,
 } from "remotion";
+import { TransitionSeries, linearTiming } from "@remotion/transitions";
+import { fade } from "@remotion/transitions/fade";
 import manifest from "../public/manifest.json";
+
+const TRANSITION_FRAMES = 15;
 
 type Cena = {
   id: string;
@@ -25,12 +28,10 @@ const Cena: React.FC<{ cena: Cena; durationInFrames: number }> = ({
 }) => {
   const frame = useCurrentFrame();
 
-  // efeito Ken Burns: zoom lento contínuo na imagem
   const scale = interpolate(frame, [0, durationInFrames], [1, 1.08], {
     extrapolateRight: "clamp",
   });
 
-  // legenda entra suave e sai suave
   const captionOpacity = interpolate(
     frame,
     [0, 12, durationInFrames - 12, durationInFrames],
@@ -48,7 +49,6 @@ const Cena: React.FC<{ cena: Cena; durationInFrames: number }> = ({
         />
       </AbsoluteFill>
 
-      {/* vinheta escura pra legenda ficar legível */}
       <AbsoluteFill
         style={{
           background:
@@ -56,7 +56,6 @@ const Cena: React.FC<{ cena: Cena; durationInFrames: number }> = ({
         }}
       />
 
-      {/* barras de cinema */}
       <AbsoluteFill>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 60, background: "#000" }} />
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 60, background: "#000" }} />
@@ -86,21 +85,33 @@ const Cena: React.FC<{ cena: Cena; durationInFrames: number }> = ({
 
 export const MyVideo: React.FC = () => {
   const { fps } = useVideoConfig();
-  let startFrame = 0;
 
   return (
     <AbsoluteFill>
-      {manifest.cenas.map((cena) => {
-        const durationInFrames = Math.round(cena.durationSeconds * fps);
-        const from = startFrame;
-        startFrame += durationInFrames;
+      {manifest.temMusica && (
+        <Audio src={staticFile("music/trilha.mp3")} loop volume={0.15} />
+      )}
 
-        return (
-          <Sequence key={cena.id} from={from} durationInFrames={durationInFrames}>
-            <Cena cena={cena} durationInFrames={durationInFrames} />
-          </Sequence>
-        );
-      })}
+      <TransitionSeries>
+        {manifest.cenas.map((cena, index) => {
+          const durationInFrames = Math.round(cena.durationSeconds * fps);
+          const isLast = index === manifest.cenas.length - 1;
+
+          return (
+            <React.Fragment key={cena.id}>
+              <TransitionSeries.Sequence durationInFrames={durationInFrames}>
+                <Cena cena={cena} durationInFrames={durationInFrames} />
+              </TransitionSeries.Sequence>
+              {!isLast && (
+                <TransitionSeries.Transition
+                  presentation={fade()}
+                  timing={linearTiming({ durationInFrames: TRANSITION_FRAMES })}
+                />
+              )}
+            </React.Fragment>
+          );
+        })}
+      </TransitionSeries>
     </AbsoluteFill>
   );
 };
